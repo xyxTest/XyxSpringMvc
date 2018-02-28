@@ -120,7 +120,13 @@
          <version>1.0.2</version>  
      </dependency>  
      <!-- swagger -->  
-        
+    <!-- JSON -->
+    <dependency>  
+        <groupId>net.sf.json-lib</groupId>  
+        <artifactId>json-lib</artifactId>  
+        <version>2.4</version>  
+        <classifier>jdk15</classifier>   
+    </dependency>     
     <!-- json数据 使springMVC可以返回json值 ,视情况添加-->
     <dependency>
       <groupId>org.codehaus.jackson</groupId>
