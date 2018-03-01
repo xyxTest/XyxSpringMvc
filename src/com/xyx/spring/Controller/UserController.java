@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,9 @@ import com.xyx.spring.Model.Pojo.UserPojo;
 import com.xyx.spring.Service.UserService;
 import com.xyx.spring.Utils.DataWrapper;
 
+//将查询到的数据缓存到myCache中,并使用方法名称加上参数中的userNo作为缓存的key    
+//通常更新操作只需刷新缓存中的某个值,所以为了准确的清除特定的缓存,故定义了这个唯一的key,从而不会影响其它缓存值    
+@Cacheable(value="myCache", key="#id")   
 @Controller
 @RequestMapping(value="api/user")
 public class UserController {

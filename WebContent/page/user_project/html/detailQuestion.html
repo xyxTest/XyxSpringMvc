@@ -1,0 +1,77 @@
+
+
+	<div id="addcontent_question">
+	<div ng-include="'page/project/html/addMessage.html'" style="display:none;" id="addMessageHtml"></div>
+        <!--内容部分-->
+	    <div class="problem">
+	        <div class="problemTitle">问题详情 <a class="back" ng-click="returnQuestionlists()">返回上一级</a></div>
+            <div class="problemCon">
+            	<div ng-if="findQuestionInfo.projectPicUrl==null"><img src="page/new_user/images/xiangqingbanner.png" alt=""></div>
+                <div ng-if="findQuestionInfo.projectPicUrl!=null"><img src="{{findQuestionInfo.projectPicUrl}}" alt=""></div>
+                <div class="problemDes">
+                    <ul>
+                    	<li><span class="projectName">项目名称：</span><span>{{findQuestionInfo.projectName}}</span></li>
+                    	<li><span class="problemName">问题名称：</span><span>{{findQuestionInfo.name}}</span></li>
+                        <li><span class="problemType">问题类型：</span><span>{{projectQuestionOfType[findQuestionInfo.questionType].name}}</span></li>
+                        <li><span class="problemMoudle">所属专业：</span><span>{{findQuestionInfo.trades}}</span></li>
+                        <li><img src="{{img}}" ng-repeat="img in questionImgList" onclick="showOneBig(this)" alt=""></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="problemDetail">
+                <span>问题描述:</span><p>{{findQuestionInfo.intro}}</p>
+            </div>
+            <div class="problemWord">
+                <hr>
+                <div class="wordCon">
+                    <div class="liuyan" ng-repeat="message in messageListInfo">
+                        <p><span>{{message.realName}}</span><span style="float:right;margin-right:10px;">{{message.messageDate}}</span></p>
+	                    <p>{{message.content}}</p>
+	                    <p>
+							<ul class="clear">
+								<div ng-repeat="ss in messageLists">
+									<div ng-if="ss[2]==message.id">
+										<div ng-repeat="mimg in ss[0]">
+											<li style="margin-left: 0px;border-bottom:none;">
+												<img width="85" height="85" ng-src="http://jasobim.com.cn/{{mimg}}" onclick="showOneBig(this)" alt="">
+											</li>
+										</div>
+									</div>
+								</div>
+							</ul>
+						</p>
+                    </div>
+                </div>
+            </div>
+	        <!--问题发表-->
+	        <div class="send">
+	            <input type="text" id="message_content" placeholder="发表留言..."><a id="message_img" class="glyphicon glyphicon-picture"></a><button type="submit" class="sendTo" ng-click="addMessage(findQuestionInfo.id)">发表</button>
+	        </div>
+	    </div>
+       
+        
+	</div>
+<style>
+.max{width:100%;height:auto;}
+.min{width:100px;height:auto;}
+</style>
+
+<script>
+	function showOneBig(scope){
+		
+	layer.ready(function(){ 
+	  layer.open({
+  		type: 1,
+  		title: false,
+  		area: ['360px', '360px'],
+  		shadeClose: true, //点击遮罩关闭
+  		content: '<div style="background-size: 100% 100%;width:360px;height:360px;background-image: url(' +scope.src+')"/></div>'
+  	  });
+	});
+
+
+
+
+}
+</script>
+	

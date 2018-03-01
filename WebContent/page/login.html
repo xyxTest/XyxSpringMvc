@@ -1,0 +1,48 @@
+<!DOCTYPE html> 
+<html > 
+	<head> 
+	<meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+<!--jquery && bootstrap-->
+    <script src="page/common/jquery/jquery.js"></script>
+    <script src="page/common/jquery/jquery-1.11.1.js"></script>
+<!--angular-->
+
+<!-- css -->
+    <link href="page/user_project/css/style.css" rel="stylesheet" />
+<!-- app.js -->
+<!-- action.js -->
+	<script src="page/project/scripts/utils/md5.js"></script>
+	
+	</head>
+	<body onkeydown="on_return();" id="login_body">
+		<div id="content" >
+			<div id="bodys">
+				<div id="left">
+					
+				</div>
+				<div name="loginform">
+					<div id="right">
+						<div id="right1">
+							<span class="inputtext">用户名：</span><input type="text" name="username" id="username"/>
+						</div>
+						<div id="right2">
+							<span class="inputtext">密&nbsp&nbsp&nbsp码：</span><input type="password" name="password" id="password"/>
+						</div>
+						<div id="right3">
+							<div id="right3-1">
+								<input type="checkbox" id="check" name="rember"/><span id="remeber"><a href="">记住密码</a></span>
+							</div>
+							<div id="right3-2">
+								<span id="forget"><a href="passwordReset.html">忘记密码</a></span>
+							</div>
+						</div>
+						<div id="right4">
+							<button id="submit" onClick="login()"></button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="page/project/scripts/login.js"></script>
+</html>

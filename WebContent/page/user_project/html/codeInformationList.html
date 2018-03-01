@@ -1,0 +1,63 @@
+
+	<div id="addcontent" ng-controller="CodeInformationController">
+		<div id="codecontent">
+			<!--内容部分-->
+		    <div class="qrCode">
+		        <!--tab-->
+		        <div class="qrCodePill">
+		            <div class="line"></div>
+		            <ul class="clear" id="tab">
+		                <li class="active" ng-click="getPapers('建筑')" id="jianzhu"><a>建筑</a></li>
+		                <li ng-click="getPapers('暖通')" id="nuantong"><a>暖通</a></li>
+		                <li ng-click="getPapers('给排水')" id="geipaishui"><a>给排水</a></li>
+		                <li ng-click="getPapers('消防')" id="xiaofang"><a>消防</a></li>
+		                <li ng-click="getPapers('电气')" id="dianqi"><a>电气</a></li>
+		            </ul>
+		
+		        </div>
+		    </div>
+		    <!--二维码-->
+		    <div class="qrCodeList">
+	            <ul class="clear" style="display: block">
+	                <li ng-repeat="paper in codePapers">
+	                	<img src="{{paper.url}}" alt="" >
+	                	<p>{{paper.originName}}</p>
+	                </li>
+	            </ul>
+		    </div>
+			
+        </div>
+	</div>
+<script>
+	function showOneBig(scope){
+		
+	layer.ready(function(){ 
+	  layer.open({
+  		type: 1,
+  		title: false,
+  		area: ['600px', '360px'],
+  		shadeClose: true, //点击遮罩关闭
+  		content: '<div style="background-size: 100% 100%;width:600px;height:360px;background-image: url(' +scope.src+')"/></div>'
+  	  });
+	});
+	 //    菜单导航
+    $(".qrCodePill ul li").on("click",function () {
+        $(".qrCodePill ul li").removeClass("active");
+        $(this).addClass("active")
+    })
+   //    二级菜单
+    var len = $('#tab li').length;
+    $('#tab li').click(function(){
+        for(i=0;i<len;i++){
+            $('.qrCodeList ul').eq(i).css('display','none');
+            $('#tab li').removeClass('active')
+        }
+        $('.qrCodeList ul').eq($(this).index('#tab li')).css('display','block');
+        $(this).addClass('active')
+
+    })
+
+
+
+}
+</script>

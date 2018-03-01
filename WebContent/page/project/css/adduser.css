@@ -1,0 +1,121 @@
+@charset "utf-8";
+/* CSS Document */
+*{
+	margin: 0px;
+	padding: 0px;
+}
+a:link {
+text-decoration: none;
+}
+a:visited {
+text-decoration: none;
+}
+
+a:active {
+text-decoration: none;
+font-size: 14px;
+font-weight: bold;
+}
+#addcontent{
+	background:url(../images/border.png) no-repeat;
+	background-size:100% 100%;
+	height:1050px;
+	width:1000px;
+	margin:30px auto;
+}
+#addcontent_project{
+	background:url(../images/border.png) no-repeat;
+	background-size:100% 100%;
+	height:850px;
+	width:1000px;
+	margin:30px auto;
+}
+#addhead{
+	padding-left:10px;
+	margin:0 auto;
+	height:51px;
+	width:860px;
+	border-bottom:1px solid #999;
+	
+}
+#addusertitle{
+	background:url(../images/itemUploadIcon.png) no-repeat;
+	padding-left:20px;
+	margin-top:14px;
+	float:left;
+	font-size:18px;
+	font-family:微软雅黑;
+}
+#returnuser{
+	margin-top:18px;
+	float:right;
+	margin-right:0px;
+	font-size:16px;
+	font-family:微软雅黑;
+}
+#returnuser span:hover{
+	color:blue;
+}
+#adduserbody{
+	margin:20px auto;
+	text-align:center;
+	height:468px;
+	width:600px;
+}
+.addinput{
+	margin:20px 50px;
+	
+}
+#mycheckBox{
+	width:420px;
+	margin-left:100px;
+	height:60px;
+}
+#checkBox{
+	padding-left:25px;
+	height:60px;
+	overflow:auto;
+	width:300px;	
+	padding-right:15px;
+	margin-left:20px;
+}
+.checkBoxs{
+	padding-left:25px;
+	height:105px;
+	overflow:auto;	
+	padding-right:15px;
+}
+#mycheckBox div{
+	float:left;
+}
+#my,#mys,#my1,#my2{
+	width:15px;
+	height:15px;
+}
+.addinput input{
+	margin-left:20px;
+	height:32px;
+	width:300px;
+}
+.addinput select{
+	margin-left:20px;
+	height:32px;
+	width:300px;
+}
+.addinput span{
+	font-size:18px;
+	
+}
+#addbutton input{
+	margin-left:20px;
+	height:32px;
+	width:75px;
+}
+.addinput .addbutton{
+	width:70px;
+	height:32px;
+	float:left;
+	
+}
+.checked{background-image:url(../images/checked.gif);width:15px;height:15px;background-repeat:no-repeat;float:left;}
+.unchecked{background-image:url(../images/unchecked.gif);width:15px;height:15px;background-repeat:no-repeat;float:left;}
