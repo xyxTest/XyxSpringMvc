@@ -86,11 +86,6 @@ public class UserServiceImpl implements UserService {
 				if(user.getMenuItemList()!=null){
 					users.setMenuItemList(user.getMenuItemList().split(","));
 				}
-				if(user.getProjectList()!=null){
-					String[] projectList=user.getProjectList().split(",");
-					String[] projectName = new String[projectList.length];
-					users.setProjectName(projectName);
-				}
 				users.setUserName(user.getUserName());
 				users.setWorkName(user.getWorkName());
 				users.setRealName(user.getRealName());
@@ -171,11 +166,6 @@ public class UserServiceImpl implements UserService {
 				}
 				if(user.getEmail() != null && !user.getEmail().equals("")) {
 					userInDB.setEmail(user.getEmail());
-				}
-				if(userInDB.getUserType()==0){
-					userInDB.setProjectList(null);
-				}else{
-					userInDB.setProjectList(user.getProjectList());
 				}
 				if (user.getWorkName() != null && !user.getWorkName().equals("")) {
 					userInDB.setWorkName(user.getWorkName());
@@ -263,7 +253,6 @@ public class UserServiceImpl implements UserService {
 				userpojo.setEmail(dataWrapper.getData().getEmail());
 				userpojo.setId(dataWrapper.getData().getId());
 				userpojo.setPassword(dataWrapper.getData().getPassword());
-				userpojo.setProjectList(dataWrapper.getData().getProjectList());
 				userpojo.setRealName(dataWrapper.getData().getRealName());
 				 
 				userpojo.setRegisterDate(sdf.format(dataWrapper.getData().getRegisterDate()));
@@ -271,7 +260,6 @@ public class UserServiceImpl implements UserService {
 				userpojo.setUserName(dataWrapper.getData().getUserName());
 				userpojo.setUserType(dataWrapper.getData().getUserType());
 				userpojo.setUserIcon(dataWrapper.getData().getUserIcon());
-				userpojo.setTeamInformation(dataWrapper.getData().getTeamInformation());
 				userpojo.setWorkName(dataWrapper.getData().getWorkName());
 				if(dataWrapper.getData().getUserIcon()!=null){
 					Files file=new Files();
@@ -297,8 +285,6 @@ public class UserServiceImpl implements UserService {
 		User adminInMemory = SessionManager.getSession(token);
 		if (adminInMemory != null) {
 			//if (adminInMemory.getUserType() == UserTypeEnum.Admin.getType() || adminInMemory.getTeamId()!=null || adminInMemory.getWorkName().equals("总经理")) {
-			user.setTeamInformation(adminInMemory.getTeamInformation());
-			user.setProjectList(adminInMemory.getProjectList());
 			if(adminInMemory.getUserType()==0){
 				userList=userDao.getUserList(pageSize, pageIndex,user);
 			}else{
@@ -311,7 +297,6 @@ public class UserServiceImpl implements UserService {
 					userpojo.setSystemType(userList.getData().get(i).getSystemType());
 					userpojo.setEmail(userList.getData().get(i).getEmail());
 					userpojo.setId(userList.getData().get(i).getId());
-					userpojo.setProjectList(userList.getData().get(i).getProjectList());
 					userpojo.setPassword(userList.getData().get(i).getPassword());
 					userpojo.setRealName(userList.getData().get(i).getRealName());
 					userpojo.setTel(userList.getData().get(i).getTel());
@@ -323,7 +308,6 @@ public class UserServiceImpl implements UserService {
 					if(userList.getData().get(i).getMenuItemList()!=null){
 						userpojo.setMenuItemList(userList.getData().get(i).getMenuItemList().split(","));
 					}
-					userpojo.setTeamInformation(userList.getData().get(i).getTeamInformation());
 					if(userList.getData().get(i).getUserIcon()!=null){
 						Files file=fileService.getById(userList.getData().get(i).getUserIcon());
 						if(file!=null){
@@ -364,7 +348,6 @@ public class UserServiceImpl implements UserService {
 					userpojo.setSystemType(userList.getData().get(i).getSystemType());
 					userpojo.setEmail(userList.getData().get(i).getEmail());
 					userpojo.setId(userList.getData().get(i).getId());
-					userpojo.setProjectList(userList.getData().get(i).getProjectList());
 					userpojo.setPassword(userList.getData().get(i).getPassword());
 					userpojo.setRealName(userList.getData().get(i).getRealName());
 					userpojo.setTel(userList.getData().get(i).getTel());
@@ -376,7 +359,6 @@ public class UserServiceImpl implements UserService {
 					if(userList.getData().get(i).getMenuItemList()!=null){
 						userpojo.setMenuItemList(userList.getData().get(i).getMenuItemList().split(","));
 					}
-					userpojo.setTeamInformation(userList.getData().get(i).getTeamInformation());
 					if(userList.getData().get(i).getUserIcon()!=null){
 						Files file=fileService.getById(userList.getData().get(i).getUserIcon());
 						if(file!=null){
@@ -406,10 +388,7 @@ public class UserServiceImpl implements UserService {
 		List<UserPojo> userpojoList=new ArrayList<UserPojo>();
 		DataWrapper<List<User>> userList=new DataWrapper<List<User>>();
 		User adminInMemory = SessionManager.getSession(token);
-		String[] workNameList={"项目经理","常务经理","技术负责人","土建负责人","安装负责人","技术员","质量员","施工员",
-				"材料员","资料员","预算员","机管员","安全员","钢筋翻样员","木工翻样员","BIM工程师"};
 		if (adminInMemory != null) {
-				
 				userList=userDao.getUserTeam(null, -1,projectId);
 				if(userList.getData().size()>0){
 					for(int i=0;i<userList.getData().size();i++){

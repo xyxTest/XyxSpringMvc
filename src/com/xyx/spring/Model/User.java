@@ -22,9 +22,11 @@ public class User {
     private String email;
     private String tel;
     private Long userIcon;
+    private String userIconUrl;
+    private Long roleId;
+    private Long departmentId;
     private Date registerDate;
-    private String projectList;
-    private String teamInformation;////班组信息
+    private Date updateDate;
     private Integer teamId;
     private Integer systemId;//0.IOS  1.android
     private Integer systemType;//0.安装人员 1.土建人员
@@ -40,22 +42,41 @@ public class User {
 	}
 	
 	@Basic
-    @Column(name = "project_list")
-	public String getProjectList() {
-		return projectList;
+    @Column(name = "user_icon_url")
+	public String getUserIconUrl() {
+		return userIconUrl;
 	}
-	public void setProjectList(String projectList) {
-		this.projectList = projectList;
+	public void setUserIconUrl(String userIconUrl) {
+		this.userIconUrl = userIconUrl;
 	}
 	
 	@Basic
-    @Column(name = "team_information")
-	public String getTeamInformation() {
-		return teamInformation;
+    @Column(name = "role_id")
+	public Long getRoleId() {
+		return roleId;
 	}
-	public void setTeamInformation(String teamInformation) {
-		this.teamInformation = teamInformation;
+	public void setRoleId(Long roleId) {
+		this.roleId = roleId;
 	}
+	
+	@Basic
+    @Column(name = "department_id")
+	public Long getDepartmentId() {
+		return departmentId;
+	}
+	public void setDepartmentId(Long departmentId) {
+		this.departmentId = departmentId;
+	}
+	
+	@Basic
+    @Column(name = "update_date")
+	public Date getUpdateDate() {
+		return updateDate;
+	}
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
+	}
+	
 	
 	@Basic
     @Column(name = "user_name")

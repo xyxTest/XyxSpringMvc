@@ -150,17 +150,6 @@ public class UserDaoImpl extends BaseDao<User> implements UserDao {
         	criteria.add(Restrictions.like("tel", "%" + user.getTel() + "%"));
         }
          
-        if(user.getTeamInformation()!=null && !user.getTeamInformation().equals("")){
-        	String[] teamInformation=user.getTeamInformation().split(",");
-        	 Disjunction dis = Restrictions.disjunction();
-             for (int i = 0; i < teamInformation.length; i++) {
-                 dis.add(Restrictions.eq("teamInformation", teamInformation[i]));
-             }
-             criteria .add(dis);
-        }
-        if(user.getProjectList()!=null){
-        	criteria.add(Restrictions.like("projectList", "%" + user.getProjectList() + "%"));
-        }
         if(user.getTeamId()!=null){
         	criteria.add(Restrictions.eq("teamId", user.getTeamId()));
         }
@@ -210,13 +199,6 @@ public class UserDaoImpl extends BaseDao<User> implements UserDao {
         dis.add(Restrictions.like("workName","%" + "质量" + "%"));
         dis.add(Restrictions.like("workName","%" + "预算" + "%"));
         dis.add(Restrictions.like("workName","%" + "经理" + "%"));
-        if(user.getProjectList()!=null){
-        	String[] test = user.getProjectList().split(",");
-        	for(int i=0;i<test.length;i++){
-        		dis.add(Restrictions.like("projectList", "%" + test[i] + "%"));
-        	}
-        	
-        }
         criteria.add(dis);
         if(user.getTeamId()!=null){
         	criteria.add(Restrictions.eq("teamId", user.getTeamId()));

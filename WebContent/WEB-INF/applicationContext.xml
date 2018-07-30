@@ -47,12 +47,13 @@
                 <prop key="hiberante.connection.autocommit">true</prop>
                <!--  <prop key="hibernate.connection.url">jdbc:mysql://10.3.103.20:3306/bimdatas</prop> -->
                <!--  <prop key="hibernate.connection.url">jdbc:mysql://192.168.2.57:3306/bimdatas</prop> -->
-                <prop key="hibernate.connection.url">jdbc:mysql://localhost:3306/xyx_databases</prop>
+                <prop key="hibernate.connection.url">jdbc:mysql://localhost:3306/xyx_databases?useSSL=false</prop>
             </props>
         </property>
         <property name="annotatedClasses">
             <list>
                 <value>com.xyx.spring.Model.User</value>
+                <value>com.xyx.spring.Model.Files</value>
             </list>
         </property>
     </bean>
@@ -61,7 +62,7 @@
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
         <!-- <property name="url" value="jdbc:mysql://10.3.103.20:3306/bimdatas?characterEncoding=utf-8" /> -->
         <!-- <property name="url" value="jdbc:mysql://192.168.2.57:3306/bimdatas?characterEncoding=utf-8" /> -->
-        <property name="url" value="jdbc:mysql://localhost:3306/xyx_databases?characterEncoding=utf-8" />
+        <property name="url" value="jdbc:mysql://localhost:3306/xyx_databases?useSSL=false" />
         <property name="username" value="root" />
         <property name="password" value="108158" />
     </bean>
