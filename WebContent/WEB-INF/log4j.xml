@@ -21,7 +21,7 @@
   
   <!-- [公共Appender] 这个class表示输入到文件，并且按日期生成新文件-->  
   <appender name="DEFAULT-APPENDER" class="org.apache.log4j.DailyRollingFileAppender">  
-     <param name="File" value="${webapp.root}/logs/common-default.log" />  <!-- ${webapp.root}项目根路径，自动获得，不用配置，可自己在web.xml中配置 -->
+     <param name="File" value="xyxProjects/logs/common-default.log" />  <!-- ${webapp.root}项目根路径，自动获得，不用配置，可自己在web.xml中配置 -->
      <param name="Append" value="true" />  <!-- 是否项目重启继续保存之前日志 -->
      <param name="encoding" value="UTF-8" />  
      <param name="threshold" value="all" /> <!-- 记录所有类型日志，记录它和比它等级高的日志all<debug -->

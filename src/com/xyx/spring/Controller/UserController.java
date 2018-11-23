@@ -21,6 +21,8 @@ import com.xyx.spring.Model.Pojo.UserPojo;
 import com.xyx.spring.Service.UserService;
 import com.xyx.spring.Utils.DataWrapper;
 
+import io.swagger.annotations.ApiOperation;
+
 //将查询到的数据缓存到myCache中,并使用方法名称加上参数中的userNo作为缓存的key    
 //通常更新操作只需刷新缓存中的某个值,所以为了准确的清除特定的缓存,故定义了这个唯一的key,从而不会影响其它缓存值    
 @Cacheable(value="myCache", key="#id")   
@@ -42,6 +44,13 @@ public class UserController {
     public DataWrapper<Void> register(
     		@ModelAttribute User user) {
         return userService.register(user);
+    }
+	@ApiOperation(value="一个测试API",notes = "第一个测试api")
+    @ResponseBody
+    @RequestMapping(value = "/hello",method = RequestMethod.GET)
+    public String hello()
+    {
+        return "hello";
     }
 	@RequestMapping(value="/admin/addUser", method = RequestMethod.POST)
     @ResponseBody
@@ -144,8 +153,9 @@ public class UserController {
 	  
 	
 	//管理员获取其他用户的个人详情
-	@RequestMapping(value="/admin/getUserDetails", method = RequestMethod.GET)
     @ResponseBody
+	@RequestMapping(value="/admin/getUserDetails", method = RequestMethod.GET)
+    //@ApiOperation(value = "通过ID查询USER信息", httpMethod = "GET", notes = "暂无")
     public DataWrapper<UserPojo> getUserDetailsByAdmin(
     		@RequestParam(value="userId",required=false) Long userId,
     		@RequestParam(value="token",required=true) String token) {

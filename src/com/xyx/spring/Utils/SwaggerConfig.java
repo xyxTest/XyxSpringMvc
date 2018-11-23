@@ -4,12 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;  
 import org.springframework.context.annotation.ComponentScan;  
 import org.springframework.context.annotation.Configuration;  
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;  
-  
-import com.mangofactory.swagger.configuration.SpringSwaggerConfig;  
-import com.mangofactory.swagger.models.dto.ApiInfo;  
-import com.mangofactory.swagger.plugin.EnableSwagger;  
-import com.mangofactory.swagger.plugin.SwaggerSpringMvcPlugin;  
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+
+import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;  
   
 /** 
  * <B>文件名称：</B>SwaggerConfig.java<BR> 
@@ -22,40 +26,25 @@ import com.mangofactory.swagger.plugin.SwaggerSpringMvcPlugin;
  * @author  
  * @version  
  */  
-@Configuration  
-@EnableWebMvc  
-@EnableSwagger  
-@ComponentScan("cn.brandwisdom.roomVouchers")  
-public class SwaggerConfig {  
-  
-    private SpringSwaggerConfig springSwaggerConfig;  
-  
-      
-  
-      
-    @Autowired  
-    public void setSpringSwaggerConfig(SpringSwaggerConfig springSwaggerConfig) {  
-        this.springSwaggerConfig = springSwaggerConfig;  
-    }  
-  
-    /** 
-     * 链式编程 来定制API样式 
-     * 后续会加上分组信息 
-     * 
-     * @return 
-     */  
-    @Bean  
-    public SwaggerSpringMvcPlugin customImplementation() {  
-        return new SwaggerSpringMvcPlugin(this.springSwaggerConfig)  
-                .apiInfo(apiInfo())  
-                .includePatterns(".*")  
-                .apiVersion("0.0.1");  
-        //.swaggerGroup(PROJECT_NAME);  
-    }  
-  
-    private ApiInfo apiInfo() {  
-        ApiInfo apiInfo = new ApiInfo("My Apps API Title", "My Apps APIDescription", "My Apps API terms ofservice",  
-                "My Apps API ContactEmail", "My Apps API LicenceType", "My Apps API LicenseURL");  
-        return apiInfo;  
-    }  
-}  
+@Configuration //必须存在
+@EnableSwagger2 //必须存在
+@EnableWebMvc //必须存在
+public class SwaggerConfig{
+    @Bean
+    public Docket customDocket() {
+        return new Docket(DocumentationType.SWAGGER_2)
+        		.apiInfo(apiInfo())
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.xyx.spring.Controller"))
+                .paths(PathSelectors.any())
+                .build();
+    }
+
+    private ApiInfo apiInfo() {
+        return new ApiInfoBuilder()
+                .title("前台API接口")
+                .description("前台API接口")
+                .version("1.1.0")
+                .build();
+    }
+}

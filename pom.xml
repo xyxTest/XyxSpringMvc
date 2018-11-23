@@ -112,13 +112,22 @@
       <artifactId>c3p0</artifactId>
       <version>${c3p0Version}</version>
     </dependency>
-    
 	 <!-- swagger -->  
-     <dependency>  
-         <groupId>com.mangofactory</groupId>  
-         <artifactId>swagger-springmvc</artifactId>  
-         <version>1.0.2</version>  
-     </dependency>  
+    <dependency>
+	    <groupId>io.springfox</groupId>
+	    <artifactId>springfox-swagger2</artifactId>
+	    <version>2.7.0</version>
+	</dependency>
+	<dependency>
+	    <groupId>io.springfox</groupId>
+	    <artifactId>springfox-swagger-ui</artifactId>
+	    <version>2.7.0</version>
+	</dependency>
+<!-- 	<dependency>
+       <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>2.6.6</version>
+	</dependency> -->
      <!-- swagger -->  
     <!-- JSON -->
     <dependency>  
