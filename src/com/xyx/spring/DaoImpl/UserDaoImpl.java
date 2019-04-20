@@ -149,10 +149,6 @@ public class UserDaoImpl extends BaseDao<User> implements UserDao {
         if(user.getTel() != null && !user.getTel().equals("")) {
         	criteria.add(Restrictions.like("tel", "%" + user.getTel() + "%"));
         }
-         
-        if(user.getTeamId()!=null){
-        	criteria.add(Restrictions.eq("teamId", user.getTeamId()));
-        }
         if (pageSize == null) {
 			pageSize = 10;
 		}
@@ -200,9 +196,6 @@ public class UserDaoImpl extends BaseDao<User> implements UserDao {
         dis.add(Restrictions.like("workName","%" + "预算" + "%"));
         dis.add(Restrictions.like("workName","%" + "经理" + "%"));
         criteria.add(dis);
-        if(user.getTeamId()!=null){
-        	criteria.add(Restrictions.eq("teamId", user.getTeamId()));
-        }
         if (pageSize == null) {
 			pageSize = 10;
 		}

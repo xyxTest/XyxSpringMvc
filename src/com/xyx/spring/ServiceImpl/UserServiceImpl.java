@@ -19,15 +19,13 @@ import com.xyx.spring.Model.User;
 import com.xyx.spring.Model.Pojo.UserPojo;
 import com.xyx.spring.Service.FileService;
 import com.xyx.spring.Service.UserService;
+import com.xyx.spring.Utils.BCrypt;
 import com.xyx.spring.Utils.DataWrapper;
-import com.xyx.spring.Utils.MD5Util;
 import com.xyx.spring.Utils.SessionManager;
 
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
-	private final String salt = "雨巷";
-	
 	@Autowired
 	UserDao userDao;
 	@Autowired
@@ -47,7 +45,8 @@ public class UserServiceImpl implements UserService {
 			dataWrapper.setErrorCode(ErrorCodeEnum.User_Existed);
 		} else {
 			user.setId(null);
-			user.setPassword(MD5Util.getMD5String(MD5Util.getMD5String(user.getPassword()) + salt));
+			String passwordnews=BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
+			user.setPassword(passwordnews);
 			user.setUserType(UserTypeEnum.User.getType());
 			//user.setUserType(user.getUserType());
 			user.setRegisterDate(new Date());
@@ -68,24 +67,15 @@ public class UserServiceImpl implements UserService {
 			dataWrapper.setErrorCode(ErrorCodeEnum.Empty_Inputs);
 		} else {
 			User user = userDao.getByUserName(userName);
-			String passwordOld=MD5Util.getMD5String(password + salt);
 			if (user == null) {
 				dataWrapper.setErrorCode(ErrorCodeEnum.User_Not_Existed);
-			} else if(!user.getPassword().equals(passwordOld)) {
+			} else if(BCrypt.checkpw(password, user.getPassword())) {
 				dataWrapper.setErrorCode(ErrorCodeEnum.Password_Error);
 			} else {
 				SessionManager.removeSessionByUserId(user.getId());
-				if(system!=null){
-					user.setSystemId(system);
-				}else{
-					user.setSystemId(-1);
-				}
 				String token = SessionManager.newSession(user);
 				dataWrapper.setToken(token);
 				UserPojo users=new UserPojo();
-				if(user.getMenuItemList()!=null){
-					users.setMenuItemList(user.getMenuItemList().split(","));
-				}
 				users.setUserName(user.getUserName());
 				users.setWorkName(user.getWorkName());
 				users.setRealName(user.getRealName());
@@ -122,9 +112,6 @@ public class UserServiceImpl implements UserService {
 				if (user.getTel() != null && !user.getTel().equals("")) {
 					userInDB.setTel(user.getTel());
 				}
-				if(user.getMenuItemList()!=null){
-					userInDB.setMenuItemList(user.getMenuItemList());
-				}
 				if (!userDao.updateUser(userInDB)) {
 					dataWrapper.setErrorCode(ErrorCodeEnum.Error);
 				}
@@ -154,15 +141,10 @@ public class UserServiceImpl implements UserService {
 					userInDB.setUserName(user.getUserName());
 				}
 				if(!user.getPassword().equals(userInDB.getPassword())){
-					userInDB.setPassword(MD5Util.getMD5String(MD5Util.getMD5String(user.getPassword()) + salt));
+					userInDB.setPassword(BCrypt.hashpw(userInDB.getPassword(), BCrypt.gensalt()));
 				}
 				if(user.getRealName() != null && !user.getRealName().equals("")) {
 					userInDB.setRealName(user.getRealName());
-				}
-				if(user.getSystemType()==null){
-					userInDB.setSystemType(0);
-				}else{
-					userInDB.setSystemType(1);
 				}
 				if(user.getEmail() != null && !user.getEmail().equals("")) {
 					userInDB.setEmail(user.getEmail());
@@ -198,10 +180,9 @@ public class UserServiceImpl implements UserService {
 		if (adminInMemory != null) {
 			if(oldPs!=null && newPs!=null)
 			{
-				String oldPsReal=MD5Util.getMD5String(MD5Util.getMD5String(oldPs) + salt);
-				if(adminInMemory.getPassword().equals(oldPsReal)){
+				if(adminInMemory.getPassword().equals(oldPs)){
 					flag=1;
-					adminInMemory.setPassword(MD5Util.getMD5String(MD5Util.getMD5String(newPs) + salt));
+					adminInMemory.setPassword(BCrypt.hashpw(newPs, BCrypt.gensalt()));
 				}else{
 					dataWrapper.setErrorCode(ErrorCodeEnum.Password_Not_Fit);
 				}
@@ -249,7 +230,6 @@ public class UserServiceImpl implements UserService {
 			dataWrapper.setData(adminInDB);
 			if(dataWrapper.getData()!=null){
 				UserPojo userpojo=new UserPojo();
-				userpojo.setSystemType(dataWrapper.getData().getSystemType());
 				userpojo.setEmail(dataWrapper.getData().getEmail());
 				userpojo.setId(dataWrapper.getData().getId());
 				userpojo.setPassword(dataWrapper.getData().getPassword());
@@ -294,7 +274,6 @@ public class UserServiceImpl implements UserService {
 			if(userList.getData().size()>0){
 				for(int i=0;i<userList.getData().size();i++){
 					UserPojo userpojo=new UserPojo();
-					userpojo.setSystemType(userList.getData().get(i).getSystemType());
 					userpojo.setEmail(userList.getData().get(i).getEmail());
 					userpojo.setId(userList.getData().get(i).getId());
 					userpojo.setPassword(userList.getData().get(i).getPassword());
@@ -305,9 +284,6 @@ public class UserServiceImpl implements UserService {
 					userpojo.setUserType(userList.getData().get(i).getUserType());
 					userpojo.setUserIcon(userList.getData().get(i).getUserIcon());
 					userpojo.setWorkName(userList.getData().get(i).getWorkName());
-					if(userList.getData().get(i).getMenuItemList()!=null){
-						userpojo.setMenuItemList(userList.getData().get(i).getMenuItemList().split(","));
-					}
 					if(userList.getData().get(i).getUserIcon()!=null){
 						Files file=fileService.getById(userList.getData().get(i).getUserIcon());
 						if(file!=null){
@@ -345,7 +321,6 @@ public class UserServiceImpl implements UserService {
 			if(userList.getData().size()>0){
 				for(int i=0;i<userList.getData().size();i++){
 					UserPojo userpojo=new UserPojo();
-					userpojo.setSystemType(userList.getData().get(i).getSystemType());
 					userpojo.setEmail(userList.getData().get(i).getEmail());
 					userpojo.setId(userList.getData().get(i).getId());
 					userpojo.setPassword(userList.getData().get(i).getPassword());
@@ -356,9 +331,6 @@ public class UserServiceImpl implements UserService {
 					userpojo.setUserType(userList.getData().get(i).getUserType());
 					userpojo.setUserIcon(userList.getData().get(i).getUserIcon());
 					userpojo.setWorkName(userList.getData().get(i).getWorkName());
-					if(userList.getData().get(i).getMenuItemList()!=null){
-						userpojo.setMenuItemList(userList.getData().get(i).getMenuItemList().split(","));
-					}
 					if(userList.getData().get(i).getUserIcon()!=null){
 						Files file=fileService.getById(userList.getData().get(i).getUserIcon());
 						if(file!=null){
@@ -498,23 +470,9 @@ public class UserServiceImpl implements UserService {
 						user.setUserIcon(newfile.getId());
 					}
 					user.setId(null);
-					user.setPassword(MD5Util.getMD5String(MD5Util.getMD5String(user.getPassword()) + salt));
+					user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
 					//user.setUserType(user.getUserType());
 					user.setRegisterDate(new Date());
-					if(user.getWorkName()!=null){
-						String[] teamId=user.getWorkName().split(",");
-						String team="";
-						for(int i=0;i<teamId.length;i++){
-							if(i==0){
-								team=team+i;
-							}else{
-								team=team+","+i;
-							}
-							
-						}
-						user.setTeamId(0);
-					}
-					user.setMenuItemList("0,1,2,3,4,5,6,7,8");
 					if(!userDao.addUser(user)) {
 						dataWrapper.setErrorCode(ErrorCodeEnum.Error);
 					}

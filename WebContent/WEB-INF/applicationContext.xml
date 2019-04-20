@@ -40,7 +40,7 @@
                 <prop key="show_sql">
                     true
                 </prop>
-                <prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>
+                <prop key="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</prop>
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
                 <prop key="hibernate.show_sql">true</prop>
                 <prop key="hiberante.format_sql">true</prop>
@@ -59,12 +59,12 @@
     </bean>
     <bean id="dataSource"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
         <!-- <property name="url" value="jdbc:mysql://10.3.103.20:3306/bimdatas?characterEncoding=utf-8" /> -->
         <!-- <property name="url" value="jdbc:mysql://192.168.2.57:3306/bimdatas?characterEncoding=utf-8" /> -->
         <property name="url" value="jdbc:mysql://localhost:3306/xyx_databases?useSSL=false" />
         <property name="username" value="root" />
-        <property name="password" value="108158" />
+        <property name="password" value="10815812" />
     </bean>
 
     <bean id="transactionManager"

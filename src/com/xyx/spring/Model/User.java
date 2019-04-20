@@ -22,15 +22,11 @@ public class User {
     private String email;
     private String tel;
     private Long userIcon;
-    private String userIconUrl;
     private Long roleId;
     private Long departmentId;
     private Date registerDate;
     private Date updateDate;
-    private Integer teamId;
-    private Integer systemId;//0.IOS  1.android
-    private Integer systemType;//0.安装人员 1.土建人员
-    private String menuItemList;
+
     @Id
     @GeneratedValue
     @Column(name = "id")
@@ -39,15 +35,6 @@ public class User {
 	}
 	public void setId(Long id) {
 		this.id = id;
-	}
-	
-	@Basic
-    @Column(name = "user_icon_url")
-	public String getUserIconUrl() {
-		return userIconUrl;
-	}
-	public void setUserIconUrl(String userIconUrl) {
-		this.userIconUrl = userIconUrl;
 	}
 	
 	@Basic
@@ -158,40 +145,5 @@ public class User {
 	}
 	public void setUserIcon(Long userIcon) {
 		this.userIcon = userIcon;
-	}
-	
-	@Basic
-    @Column(name = "system_id") 
-	public Integer getSystemId() {
-		return systemId;
-	}
-	public void setSystemId(Integer systemId) {
-		this.systemId = systemId;
-	}
-	
-	@Basic
-    @Column(name = "team_id")
-	public Integer getTeamId() {
-		return teamId;
-	}
-	public void setTeamId(Integer teamId) {
-		this.teamId = teamId;
-	}
-	@Basic
-    @Column(name = "system_type")
-	public Integer getSystemType() {
-		return systemType;
-	}
-	public void setSystemType(Integer systemType) {
-		this.systemType = systemType;
-	}
-	
-	@Basic
-	@Column(name = "menu_item_list")
-	public String getMenuItemList() {
-		return menuItemList;
-	}
-	public void setMenuItemList(String menuItemList) {
-		this.menuItemList = menuItemList;
 	}
 }
